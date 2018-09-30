@@ -8,9 +8,9 @@
     This file contains the implementation of the inode.
  ************************************************************************/
 
-extern crate spdk_rs;
 
-use self::spdk_rs::raw;
+
+use raw;
 use time;
 use time::Timespec;
 use std::mem;
@@ -248,7 +248,6 @@ mod tests {
     #[test]
     fn test_dummy() {
         // NOTE: below two lines how we can use the data structure from spdk_rs
-        use inode::spdk_rs::raw;
-        let opts : raw::spdk_app_opts;
+        let opts : super::raw::spdk_app_opts;
     }
 }

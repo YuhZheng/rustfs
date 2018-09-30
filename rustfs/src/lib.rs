@@ -9,6 +9,7 @@
  ************************************************************************/
 
 extern crate time;
+extern crate spdk_rs as raw;
 
 mod directory;
 mod file;
