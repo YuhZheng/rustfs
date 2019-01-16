@@ -30,7 +30,6 @@ pub mod env;
 pub mod event;
 pub mod executor;
 pub mod io_channel;
-pub mod run;
 pub mod thread;
 
 pub use bdev::{SpdkBdev, SpdkBdevDesc};

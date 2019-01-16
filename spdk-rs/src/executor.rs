@@ -9,7 +9,6 @@
  ************************************************************************/
 
 extern crate futures;
-extern crate tokio;
 
 use futures_new::future::Future;
 use futures_new::future::LocalFutureObj;

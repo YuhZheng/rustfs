@@ -155,21 +155,35 @@ async fn run_inner() -> Result<(), Error> {
     debug!("write_size_numeric: {}", write_size_numeric);
     // let's time the execution of the write
     let start = Instant::now();
-    await!( async {
-        for i in 0..num_chunks {
-            spdk_rs::bdev::write(desc.clone(), &io_channel, &buffer_vec[i], (0 + i*write_buf_size) as u64, write_buf_size as u64);
-        }
-    });
-    // match await!(spdk_rs::bdev::write(
-    //     desc.clone(),
-    //     &io_channel,
-    //     &write_buf,
-    //     0,
-    //     write_size_numeric
-    // )) {
-    //     Ok(_) => println!("Successfully write to bdev"),
-    //     Err(error) => println!("{:?}", error),
+    // await!( async {
+    //     for i in 0..num_chunks {
+    //         spdk_rs::bdev::write(desc.clone(), &io_channel, &buffer_vec[i], (0 + i*write_buf_size) as u64, write_buf_size as u64);
+    //     }
+    // });
+
+    // for i in 0..num_chunks {
+    //     match await!(spdk_rs::bdev::write(
+    //         desc.clone(),
+    //         &io_channel,
+    //         &buffer_vec[i],
+    //         (0 + i * write_buf_size) as u64,
+    //         write_buf_size as u64
+    //     )) {
+    //         Ok(_) => {}
+    //         Err(error) => panic!("{:?}", error),
+    //     }
     // }
+
+    match await!(spdk_rs::bdev::write(
+        desc.clone(),
+        &io_channel,
+        &buffer_vec[0],
+        0,
+        write_buf_size as u64
+    )) {
+        Ok(_) => println!("Successfully write to bdev"),
+        Err(error) => println!("{:?}", error),
+    }
     let duration = start.elapsed();
 
     debug!(

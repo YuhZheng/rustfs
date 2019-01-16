@@ -108,7 +108,7 @@ impl Buf {
     }
 
     pub fn read(&self) -> &'static str {
-        unsafe { CStr::from_ptr(self.to_raw() as *const i8).to_str().unwrap() }
+        unsafe { CStr::from_ptr(self.to_raw() as *const u8).to_str().unwrap() }
     }
 }
 
@@ -120,4 +120,24 @@ pub fn dma_zmalloc(size: usize, align: usize) -> Buf {
     };
     assert!(!ptr.is_null(), "Failed to malloc");
     Buf { raw: ptr }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::mem;
+
+    #[test]
+    fn test_fill_fixed() {
+        unsafe {
+            let mut buffer_size = 5;
+            let mut buffer = libc::malloc(mem::size_of::<c_char>() * buffer_size);
+            let mut buf = Buf::from_raw(buffer as *mut c_void);
+            buf.fill_fixed(buffer_size, "A");
+            for i in 0..buffer_size {
+                assert!(*(buf.to_raw() as *mut u8).offset(i as isize) as char == 'A');
+            }
+            libc::free(buffer);
+        }
+    }
 }

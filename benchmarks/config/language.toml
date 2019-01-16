@@ -7,7 +7,8 @@ DEVICE = "/dev/nvme0n1"
 # Setup to measure the throughput
 [sequential_write]
 # Block size
-BS = "1G"
+#BS = "1G"
+#BS="5MB"
 # dd's `count=` (e.g. 120)
 COUNT = 1
 # dd's `dsync`
