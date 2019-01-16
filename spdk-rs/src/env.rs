@@ -108,7 +108,7 @@ impl Buf {
     }
 
     pub fn read(&self) -> &'static str {
-        unsafe { CStr::from_ptr(self.to_raw() as *const u8).to_str().unwrap() }
+        unsafe { CStr::from_ptr(self.to_raw() as *const i8).to_str().unwrap() }
     }
 }
 

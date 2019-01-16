@@ -16,8 +16,6 @@ extern crate libc;
 extern crate hamcrest2;
 extern crate futures;
 extern crate futures_new;
-#[macro_use]
-extern crate tokio;
 
 #[macro_use]
 extern crate log;
